@@ -253,11 +253,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 This project is currently **unlicensed**. All rights reserved. A license will be added once the project maintainer selects one.
 
 ## Acknowledgments
-
-- Originally prototyped using **Figma Make**
-- Built with **React**, **Vite**, **Tailwind CSS**, **TypeScript**
-- Icons drawn inline as SVG paths (no external icon library)
-- Educational PBFT model inspired by Castro & Liskov (1999)
 - Real-world motivation: **De Beers Tracr** — blockchain-based diamond provenance platform
 
 ---
