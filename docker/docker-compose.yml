@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  validator-1:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: ["start", "--config", "/config/validator-1.json"]
+    volumes:
+      - ./config/validator-1.json:/config/validator-1.json:ro
+      - ./data/validator-1:/data
+    ports:
+      - "8001:8000"
+      - "9001:9000"
+    environment:
+      - NODE_ID=validator-1
+      - LOG_LEVEL=debug
+    networks:
+      - verilock-network
+    depends_on:
+      - bootstrap
+
+  validator-2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: ["start", "--config", "/config/validator-2.json"]
+    volumes:
+      - ./config/validator-2.json:/config/validator-2.json:ro
+      - ./data/validator-2:/data
+    ports:
+      - "8002:8000"
+      - "9002:9000"
+    environment:
+      - NODE_ID=validator-2
+      - LOG_LEVEL=debug
+    networks:
+      - verilock-network
+    depends_on:
+      - bootstrap
+
+  validator-3:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: ["start", "--config", "/config/validator-3.json"]
+    volumes:
+      - ./config/validator-3.json:/config/validator-3.json:ro
+      - ./data/validator-3:/data
+    ports:
+      - "8003:8000"
+      - "9003:9000"
+    environment:
+      - NODE_ID=validator-3
+      - LOG_LEVEL=debug
+    networks:
+      - verilock-network
+    depends_on:
+      - bootstrap
+
+  validator-4:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: ["start", "--config", "/config/validator-4.json"]
+    volumes:
+      - ./config/validator-4.json:/config/validator-4.json:ro
+      - ./data/validator-4:/data
+    ports:
+      - "8004:8000"
+      - "9004:9000"
+    environment:
+      - NODE_ID=validator-4
+      - LOG_LEVEL=debug
+    networks:
+      - verilock-network
+    depends_on:
+      - bootstrap
+
+  bootstrap:
+    image: libp2p/bootstrap:latest
+    ports:
+      - "4001:4001"
+    networks:
+      - verilock-network
+
+networks:
+  verilock-network:
+    driver: bridge
+
+volumes:
+  data-validator-1:
+  data-validator-2:
+  data-validator-3:
+  data-validator-4:

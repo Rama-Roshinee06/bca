@@ -90,8 +90,6 @@ function App() {
         onNavigate={go}
         mobileNav={mobileNav}
         onToggleMobileNav={() => setMobileNav(true)}
-        dark={dark}
-        onToggleDark={reset}
         onReset={reset}
       />
       {mobileNav && (

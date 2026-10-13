@@ -67,11 +67,13 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .sidebar nav button:hover { color: #fff; background: #18232c; }
 .sidebar nav button.active { color: #e8faff; background: #17313a; box-shadow: inset 2px 0 #31a6c1; }
 .nav-separator { height: 1px; background: #24313b; margin: 9px 8px; }
-.sidebar-foot { padding: 12px; border-top: 1px solid #24313b; }
-.sim-label { display: flex; gap: 9px; color: #d8ab5e; background: #261f15; border: 1px solid #3d3220; padding: 9px; border-radius: 4px; margin-bottom: 5px; }
+.sidebar-foot { padding: 12px; border-top: 1px solid #24313b; display: flex; flex-direction: column; gap: 8px; }
+.sim-label { display: flex; gap: 9px; color: #d8ab5e; background: #261f15; border: 1px solid #3d3220; padding: 9px; border-radius: 4px; }
 .sim-label div { display: flex; flex-direction: column; }
 .sim-label strong { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
 .sim-label span { color: #88785e; font-size: 9px; }
+.backend-status { display: flex; align-items: center; gap: 6px; color: #d8ab5e; background: #261f15; border: 1px solid #3d3220; padding: 8px; border-radius: 4px; font-size: 10px; }
+.backend-status strong { color: #f5a623; }
 .sidebar-foot .btn { width: 100%; color: #8495a2; }
 .shell { padding-left: 248px; min-width: 0; flex: 1; }
 .topbar { height: 64px; position: sticky; z-index: 40; top: 0; display: flex; align-items: center; gap: 18px; padding: 0 24px; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }

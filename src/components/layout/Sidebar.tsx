@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Icon } from "../common/Icon"
 import { Button } from "../common/Button"
 import { Badge } from "../common/Badge"
@@ -9,8 +8,6 @@ interface SidebarProps {
   onNavigate: (page: Page) => void
   mobileNav: boolean
   onToggleMobileNav: () => void
-  dark: boolean
-  onToggleDark: () => void
   onReset: () => void
 }
 
@@ -19,8 +16,6 @@ export function Sidebar({
   onNavigate,
   mobileNav,
   onToggleMobileNav,
-  dark,
-  onToggleDark,
   onReset,
 }: SidebarProps) {
   const nav = [
@@ -84,6 +79,12 @@ export function Sidebar({
             <strong>Educational simulation</strong>
             <span>Local browser model · v1.4</span>
           </div>
+        </div>
+        <div className="backend-status">
+          <Icon name="alert" size={12} />
+          <span>
+            Frontend only · Backend: <strong>Not implemented</strong>
+          </span>
         </div>
         <Button kind="ghost" icon="refresh" onClick={onReset}>
           Reset demo state

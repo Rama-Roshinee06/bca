@@ -1,0 +1,38 @@
+{
+  "name": "verilock-node",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "VERILOCK Node - Permissioned blockchain node for distributed asset provenance",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/cli/index.ts",
+    "start": "node dist/cli/index.js",
+    "test": "vitest run",
+    "lint": "oxfmt --check src",
+    "format": "oxfmt src"
+  },
+  "dependencies": {
+    "@libp2p/websockets": "^1.0.0",
+    "@noble/ed25519": "^2.0.0",
+    "@noble/hashes": "^1.4.0",
+    "libp2p": "^1.0.0",
+    "rocksdb": "^6.0.0",
+    "protobufjs": "^7.2.0",
+    "uint8arrays": "^5.0.0",
+    "yargs": "^17.7.0",
+    "pino": "^9.0.0",
+    "pino-pretty": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/yargs": "^17.0.0",
+    "oxfmt": "^0.2.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

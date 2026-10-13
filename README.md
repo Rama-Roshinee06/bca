@@ -15,7 +15,10 @@ VERILOCK is a browser-based educational tool that simulates a permissioned block
 - **Security lab** — Attack demonstrations (tampering, forgery, replay, partition)
 - **Performance benchmarks** — Local throughput and latency modeling
 
-All computation runs in the browser — no backend, no network, no external dependencies.
+**All computation runs in the browser — no backend, no network, no external dependencies.**
+
+> ⚠️ **Current Status: Frontend-only simulation (v1.4)**
+> This is an educational frontend that visualizes blockchain concepts with deterministic mock data. It does **not** implement a real P2P network, consensus protocol, or cryptographic identity system. See [ARCHITECTURE.md](ARCHITECTURE.md) for the full distributed system design and implementation roadmap.
 
 ## Features Implemented
 
@@ -36,12 +39,21 @@ All computation runs in the browser — no backend, no network, no external depe
 
 ## Technology Stack
 
+### Frontend (Current)
 - **React 19** — Modern React with concurrent features
 - **TypeScript 5.9** — Strict type checking
 - **Vite 8** — Fast build tool and dev server
 - **Tailwind CSS 4** — Utility-first styling with CSS variables for theming
 - **oxfmt** — Fast code formatter (Oxc-based)
 - **pnpm 10** — Package manager
+
+### Backend (Planned — `node/`)
+- **Node.js 20 + TypeScript** — Shared language with frontend
+- **libp2p** — P2P networking (WebSocket + Noise + Mplex)
+- **@noble/ed25519** — Ed25519 signatures
+- **RocksDB** — Persistent ordered key-value storage
+- **Protocol Buffers** — Canonical serialization
+- **Docker** — Multi-node test deployment
 
 ## Prerequisites
 
@@ -58,7 +70,9 @@ pnpm install
 
 ## Development
 
-Start the development server:
+### Frontend Only (Current)
+
+Start the Vite development server:
 
 ```bash
 pnpm dev
@@ -66,8 +80,19 @@ pnpm dev
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
+### Backend (Not Yet Implemented)
+
+The `node/` directory contains a placeholder structure for the distributed node implementation. See [ARCHITECTURE.md](ARCHITECTURE.md#backend-implementation-roadmap) for the phased roadmap.
+
+```bash
+cd node
+pnpm install
+pnpm run dev  # Will start CLI once implemented
+```
+
 ## Available Scripts
 
+### Frontend (Root)
 | Command | Description |
 |---------|-------------|
 | `pnpm dev` | Start Vite dev server (port 5173) |
@@ -77,6 +102,16 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | `pnpm lint` | Check formatting (CI-friendly) |
 | `pnpm typecheck` | Run TypeScript type checking |
 
+### Backend (`node/`)
+| Command | Description |
+|---------|-------------|
+| `pnpm run build` | Compile TypeScript to `dist/` |
+| `pnpm run dev` | Start CLI with tsx watch mode |
+| `pnpm run start` | Run compiled CLI |
+| `pnpm run test` | Run vitest tests |
+| `pnpm run lint` | Check formatting |
+| `pnpm run format` | Format source code |
+
 ## Project Structure
 
 ```
@@ -85,39 +120,48 @@ bca/
 │   ├── favicon.svg
 │   ├── images/
 │   └── icons/
-├── src/
-│   ├── assets/           # Static assets (images, fonts)
+├── src/                          # Frontend (React)
+│   ├── assets/
 │   ├── components/
-│   │   ├── common/       # Reusable UI components (Button, Badge, Hash, Panel, etc.)
-│   │   └── layout/       # Layout components (Sidebar, Topbar, Breadcrumb)
-│   ├── pages/            # Page components (one per route)
-│   │   ├── components/   # Page-specific sub-components
-│   │   ├── Overview.tsx
-│   │   ├── Blocks.tsx
-│   │   ├── Transactions.tsx
-│   │   ├── CryptoLab.tsx
-│   │   ├── MerkleLab.tsx
-│   │   ├── Topology.tsx
-│   │   ├── Consensus.tsx
-│   │   ├── Provenance.tsx
-│   │   ├── Recovery.tsx
-│   │   ├── Security.tsx
-│   │   ├── Benchmarks.tsx
-│   │   └── Docs.tsx
-│   ├── hooks/            # Custom React hooks (future use)
-│   ├── utils/            # Utility functions (hashing, mock data)
-│   ├── types/            # Shared TypeScript types
-│   ├── styles/           # Global styles (future use)
-│   ├── App.tsx           # Root component with routing/state
-│   ├── main.tsx          # Entry point
-│   └── index.css         # Global styles + Tailwind import
+│   │   ├── common/               # Reusable UI components
+│   │   └── layout/               # Layout components
+│   ├── pages/                    # Page components
+│   │   ├── components/           # Page-specific sub-components
+│   │   └── *.tsx                 # 12 page components
+│   ├── hooks/                    # Custom React hooks (reserved)
+│   ├── utils/                    # Utility functions (hashing, mock data)
+│   ├── types/                    # Shared TypeScript types
+│   ├── styles/                   # Global styles (reserved)
+│   ├── App.tsx                   # Root component
+│   ├── main.tsx                  # Entry point
+│   └── index.css                 # Global styles + Tailwind
+├── node/                         # Backend placeholder (Node.js)
+│   ├── src/
+│   │   ├── crypto/               # Ed25519 keys, signing
+│   │   ├── consensus/            # PBFT implementation
+│   │   ├── network/              # libp2p P2P networking
+│   │   ├── storage/              # RocksDB persistence
+│   │   ├── state/                # Asset ownership state machine
+│   │   ├── mempool/              # Transaction pool
+│   │   ├── block/                # Block builder, Merkle trees
+│   │   ├── sync/                 # Block fetch, verification, replay
+│   │   ├── api/                  # REST/gRPC for clients
+│   │   ├── cli/                  # Commands: start, submit, query
+│   │   ├── config/               # Genesis, peer list, keys
+│   │   └── types/                # Shared backend types
+│   ├── package.json
+│   └── tsconfig.json
+├── docker/                       # Multi-node Docker Compose
+│   ├── docker-compose.yml
+│   └── Dockerfile
 ├── .github/
 │   └── workflows/
-│       └── ci.yml        # GitHub Actions CI
+│       └── ci.yml                # GitHub Actions CI
 ├── .gitignore
 ├── .gitattributes
 ├── .env.example
 ├── CONTRIBUTING.md
+├── ARCHITECTURE.md               # Full distributed system design
 ├── index.html
 ├── package.json
 ├── pnpm-lock.yaml
@@ -142,7 +186,7 @@ The application supports light/dark themes persisted in `localStorage` (`veriloc
 
 ## Deployment
 
-### Static Hosting (Vercel, Netlify, Cloudflare Pages, GitHub Pages)
+### Frontend — Static Hosting (Vercel, Netlify, Cloudflare Pages, GitHub Pages)
 
 ```bash
 pnpm build
@@ -151,7 +195,7 @@ pnpm build
 
 The build outputs a fully static SPA. Configure your host to serve `index.html` for all routes.
 
-### Docker
+### Frontend — Docker
 
 ```dockerfile
 FROM node:20-alpine
@@ -163,6 +207,15 @@ RUN pnpm build
 CMD ["pnpm", "preview", "--host", "0.0.0.0", "--port", "5173"]
 ```
 
+### Backend — Multi-Node (Planned)
+
+```bash
+cd docker
+docker-compose up --build
+```
+
+This will start 4 validator nodes + 1 bootstrap node for local testing.
+
 ## Troubleshooting
 
 | Issue | Solution |
@@ -173,7 +226,18 @@ CMD ["pnpm", "preview", "--host", "0.0.0.0", "--port", "5173"]
 | Styles not updating | Restart dev server; Tailwind 4 uses CSS variables |
 | Theme not persisting | Check `localStorage` is enabled (not in private browsing) |
 
+## Backend Implementation Roadmap
 
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the complete design. Summary:
+
+| Phase | Focus | Timeline |
+|-------|-------|----------|
+| **1** | Single-node core (crypto, state machine, blocks, storage, CLI) | 1-2 weeks |
+| **2** | P2P networking + leader-based consensus | 2-3 weeks |
+| **3** | Full PBFT + view changes + fault injection | 2-3 weeks |
+| **4** | Hardening (checkpointing, metrics, stress tests) | 1-2 weeks |
+
+**Target:** 4-node permissioned network tolerating 1 Byzantine fault, with real Ed25519 signatures, Merkle proofs, and sync/recovery.
 
 ## Contributing
 
@@ -184,3 +248,18 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 - Code formatting and linting
 - Pull request process
 
+## License
+
+This project is currently **unlicensed**. All rights reserved. A license will be added once the project maintainer selects one.
+
+## Acknowledgments
+
+- Originally prototyped using **Figma Make**
+- Built with **React**, **Vite**, **Tailwind CSS**, **TypeScript**
+- Icons drawn inline as SVG paths (no external icon library)
+- Educational PBFT model inspired by Castro & Liskov (1999)
+- Real-world motivation: **De Beers Tracr** — blockchain-based diamond provenance platform
+
+---
+
+**VERILOCK** — Local browser model · v1.4 · Educational simulation
