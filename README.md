@@ -173,12 +173,7 @@ CMD ["pnpm", "preview", "--host", "0.0.0.0", "--port", "5173"]
 | Styles not updating | Restart dev server; Tailwind 4 uses CSS variables |
 | Theme not persisting | Check `localStorage` is enabled (not in private browsing) |
 
-## Security & Privacy
 
-- **No backend** — All data stays in your browser
-- **No telemetry** — No analytics, tracking, or external requests
-- **No secrets** — No API keys, tokens, or credentials in codebase
-- **Educational only** — Not for production use; cryptographic operations use Web Crypto API but fixture signatures are labeled demo data
 
 ## Contributing
 
@@ -189,17 +184,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 - Code formatting and linting
 - Pull request process
 
-## License
-
-This project is currently **unlicensed**. All rights reserved. A license will be added once the project maintainer selects one.
-
-## Acknowledgments
-
-- Originally prototyped using **Figma Make**
-- Built with **React**, **Vite**, **Tailwind CSS**, **TypeScript**
-- Icons drawn inline as SVG paths (no external icon library)
-- Educational PBFT model inspired by Castro & Liskov (1999)
-
----
-
-**VERILOCK** — Local browser model · v1.4 · Educational simulation
