@@ -1,0 +1,23 @@
+# Git attributes for VERILOCK
+# Auto-detect text files and normalize line endings
+* text=auto eol=lf
+
+# Mark built assets as binary
+dist/** binary
+
+# Explicitly declare text files
+*.ts text
+*.tsx text
+*.json text
+*.css text
+*.html text
+*.md text
+*.yaml text
+*.yml text
+*.toml text
+
+# SVG files as text (they're XML)
+*.svg text
+
+# Lockfiles
+pnpm-lock.yaml text
